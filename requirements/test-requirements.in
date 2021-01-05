@@ -1,5 +1,6 @@
 -r requirements.txt
 
+debugpy
 pytest
 pytest-cov
 requests  # for fastapi.testclient

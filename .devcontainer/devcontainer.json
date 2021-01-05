@@ -1,0 +1,21 @@
+{
+  "name": "Existing Docker Compose (Extend)",
+
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+    "docker-compose.yml",
+  ],
+
+  "service": "vscode",
+
+  "workspaceFolder": "/workspace",
+
+  "settings": {
+    "terminal.integrated.shell.linux": null
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance"
+  ],
+  "remoteUser": "user"
+}
