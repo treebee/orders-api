@@ -1,6 +1,12 @@
 -r requirements.txt
 
+# black, isort and mypy versions are synced with those in .pre-commit-config.yaml
+black==20.8b1
+isort==5.6.4
+mypy==0.790
+
 debugpy
+flake8
 pytest
 pytest-cov
 requests  # for fastapi.testclient
