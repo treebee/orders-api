@@ -1,6 +1,13 @@
 from setuptools import find_packages, setup
 
-install_requires = ["fastapi", "uvicorn"]
+install_requires = [
+    "alembic",
+    "fastapi",
+    "psycopg2",
+    "sqlalchemy",
+    "uvicorn"
+]
+
 
 setup(
     name="orders_api",

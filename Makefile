@@ -34,7 +34,7 @@ flake8:
 	$(dc) run --rm api flake8 src tests
 
 test:
-	$(dc) run --rm api python -m pytest tests
+	$(dc) run --rm -e POSTGRES_DB="order_api_testdb" api python -m pytest tests -sv
 
 mypy:
 	$(dc) run --rm api mypy src tests

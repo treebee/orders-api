@@ -8,3 +8,17 @@ services:
       command: uvicorn --reload --host 0.0.0.0 --port 8000 orders_api.main:app
       volumes:
         - .:/workspace:z
+      depends_on:
+        - db
+      environment:
+        DATABASE_URL: "postgresql://postgres:pg-secret@db/order_api_db"
+
+  db:
+    image: postgres:13
+    ports:
+      - "2345:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "pg-secret"
+      POSTGRES_HOST: "db"
+      POSTGRES_DB: "${POSTGRES_DB:-order_api_db}"

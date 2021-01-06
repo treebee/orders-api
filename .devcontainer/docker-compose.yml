@@ -5,6 +5,9 @@ services:
     image: orders_api:latest
     volumes:
       - .:/workspace:cached
-
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://postgres:pg-secret@db/order_api_testdb"
     # Overrides default command so things don't shut down after the process ends.
     command: /bin/sh -c "while sleep 1000; do :; done"

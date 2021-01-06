@@ -12,4 +12,7 @@ def create_app() -> FastAPI:
     async def health() -> str:
         return "ok"
 
+    from orders_api.routers import stores
+
+    app.include_router(stores.router)
     return app
