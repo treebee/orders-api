@@ -11,7 +11,7 @@ services:
       depends_on:
         - db
       environment:
-        DATABASE_URL: "postgresql://postgres:pg-secret@db/order_api_db"
+        DATABASE_URL: "postgresql://postgres:mypassword@db/orders_api_db"
 
   db:
     image: postgres:13
@@ -19,6 +19,5 @@ services:
       - "2345:5432"
     environment:
       POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "pg-secret"
-      POSTGRES_HOST: "db"
-      POSTGRES_DB: "${POSTGRES_DB:-order_api_db}"
+      POSTGRES_PASSWORD: "mypassword"
+      POSTGRES_DB: "orders_api_db"

@@ -7,7 +7,10 @@ An example python project serving as a reference. (see also this [blog series](h
 This projects comes with a `docker-compose` setup and a `Makefile` (yes, a `Makefile` :D) for executing the most frequent commands:
 
 	# building the image
-	make setup
+	make build
+
+	# initialize the database
+	make setup-db
 
 	# starting the api service
 	make run
