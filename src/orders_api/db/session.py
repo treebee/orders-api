@@ -1,25 +1,25 @@
 from functools import lru_cache
+from typing import Generator
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, scoped_session, sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 from orders_api.config import get_settings
-
 
 engine = create_engine(get_settings().database_url, pool_pre_ping=True)
 
 
 @lru_cache
-def create_session():
+def create_session() -> scoped_session:
     Session = scoped_session(
         sessionmaker(autocommit=False, autoflush=False, bind=engine)
     )
     return Session
 
 
-def get_session() -> Session:
-    db_session = create_session()
+def get_session() -> Generator[scoped_session, None, None]:
+    Session = create_session()
     try:
-        yield db_session
+        yield Session
     finally:
-        db_session.remove()
+        Session.remove()
