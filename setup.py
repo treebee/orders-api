@@ -4,6 +4,7 @@ install_requires = [
     "alembic",
     "fastapi",
     "psycopg2",
+    "pydantic",
     "sqlalchemy",
     "uvicorn"
 ]
