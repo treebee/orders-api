@@ -4,21 +4,29 @@
 #
 #    pip-compile --output-file=requirements/requirements.txt
 #
-alembic==1.4.3
+alembic==1.5.2
     # via orders_api (setup.py)
 click==7.1.2
     # via uvicorn
+dnspython==2.1.0
+    # via email-validator
+email-validator==1.1.2
+    # via pydantic
 fastapi==0.63.0
     # via orders_api (setup.py)
 h11==0.12.0
     # via uvicorn
+idna==2.10
+    # via
+    #   email-validator
+    #   orders_api (setup.py)
 mako==1.1.4
     # via alembic
 markupsafe==1.1.1
     # via mako
 psycopg2==2.8.6
     # via orders_api (setup.py)
-pydantic==1.7.3
+pydantic[email]==1.7.3
     # via
     #   fastapi
     #   orders_api (setup.py)

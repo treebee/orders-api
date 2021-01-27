@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, EmailStr, HttpUrl
 from pydantic.types import UUID4, constr
 
 from .utils import to_camel
@@ -15,6 +15,7 @@ class StoreBase(BaseModel):
     phone: Optional[str]
     street: Optional[str]
     zipcode: Optional[str]
+    email: Optional[EmailStr]
 
 
 class StoreUpdate(StoreBase):

@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/test-requirements.txt requirements/test-requirements.in
 #
-alembic==1.4.3
+alembic==1.5.2
     # via -r requirements/requirements.txt
 appdirs==1.4.4
     # via black
@@ -21,10 +21,18 @@ click==7.1.2
     #   -r requirements/requirements.txt
     #   black
     #   uvicorn
-coverage==5.3.1
+coverage==5.4
     # via pytest-cov
 debugpy==1.2.1
     # via -r requirements/test-requirements.in
+dnspython==2.1.0
+    # via
+    #   -r requirements/requirements.txt
+    #   email-validator
+email-validator==1.1.2
+    # via
+    #   -r requirements/requirements.txt
+    #   pydantic
 fastapi==0.63.0
     # via -r requirements/requirements.txt
 flake8==3.8.4
@@ -34,7 +42,10 @@ h11==0.12.0
     #   -r requirements/requirements.txt
     #   uvicorn
 idna==2.10
-    # via requests
+    # via
+    #   -r requirements/requirements.txt
+    #   email-validator
+    #   requests
 iniconfig==1.1.1
     # via pytest
 isort==5.6.4
@@ -67,7 +78,7 @@ py==1.10.0
     # via pytest
 pycodestyle==2.6.0
     # via flake8
-pydantic==1.7.3
+pydantic[email]==1.7.3
     # via
     #   -r requirements/requirements.txt
     #   fastapi
@@ -75,9 +86,9 @@ pyflakes==2.2.0
     # via flake8
 pyparsing==2.4.7
     # via packaging
-pytest-cov==2.10.1
+pytest-cov==2.11.1
     # via -r requirements/test-requirements.in
-pytest==6.2.1
+pytest==6.2.2
     # via
     #   -r requirements/test-requirements.in
     #   pytest-cov
@@ -121,7 +132,7 @@ typing-extensions==3.7.4.3
     # via
     #   black
     #   mypy
-urllib3==1.26.2
+urllib3==1.26.3
     # via requests
 uvicorn==0.13.3
     # via -r requirements/requirements.txt

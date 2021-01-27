@@ -6,6 +6,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey, UniqueConstraint
+from sqlalchemy_utils import EmailType
 
 Base: Any = declarative_base()
 
@@ -22,6 +23,7 @@ class Store(Base):
     phone = sa.Column(sa.Text)
     street = sa.Column(sa.Text, nullable=False)
     zipcode = sa.Column(sa.Text, nullable=False)
+    email = sa.Column(EmailType)
 
 
 class Product(Base):

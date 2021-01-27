@@ -3,10 +3,11 @@ from setuptools import find_packages, setup
 install_requires = [
     "alembic",
     "fastapi",
+    "idna<3",  # resolve dependency version conflict
     "psycopg2",
-    "pydantic",
+    "pydantic[email]",
     "sqlalchemy",
-    "uvicorn"
+    "uvicorn",
 ]
 
 
