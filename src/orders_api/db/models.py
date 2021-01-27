@@ -34,6 +34,7 @@ class Product(Base):
     store = relationship("Store", backref="products")
     name = sa.Column(sa.Text, nullable=False)
     price = sa.Column(sa.Numeric(12, 2), nullable=False)
+    description = sa.Column(sa.Text)
 
     __table_args__ = (UniqueConstraint("name", "store_id", name="uix_products"),)
 

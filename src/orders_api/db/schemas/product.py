@@ -15,6 +15,7 @@ class ProductBase(BaseModel):
 class ProductUpdate(ProductBase):
     name: Optional[str]
     price: Optional[condecimal(decimal_places=2)]  # type: ignore
+    description: Optional[str]
 
 
 class ProductCreate(ProductBase):
