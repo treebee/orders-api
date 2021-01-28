@@ -13,6 +13,7 @@ def test_list(app_client, create_order) -> None:
     assert rv.status_code == 200
     assert len(orders) == 1
     assert orders[0]["orderId"] == str(create_order.order_id)
+    assert orders[0]["total"] == 9.99 * 2
 
 
 def test_get(app_client, create_order) -> None:

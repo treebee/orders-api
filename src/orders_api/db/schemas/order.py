@@ -25,6 +25,7 @@ class OrderCreate(BaseModel):
 class Order(BaseModel):
     order_id: UUID4
     date: datetime
+    total: float
 
     class Config:
         orm_mode = True

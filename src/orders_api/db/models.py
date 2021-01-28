@@ -4,6 +4,7 @@ from typing import Any
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey, UniqueConstraint
 from sqlalchemy_utils import EmailType
@@ -45,6 +46,10 @@ class Order(Base):
     order_id = sa.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     date = sa.Column(sa.DateTime, server_default=sa.func.now(), nullable=False)
     items = relationship("OrderItem", backref="order")
+
+    @hybrid_property
+    def total(self):
+        return sum(item.product.price * item.quantity for item in self.items)
 
 
 class OrderItem(Base):
