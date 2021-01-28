@@ -12,6 +12,17 @@ setup-db:
 run:
 	$(dc) up -d api
 
+delete-db:
+	$(dc) stop db
+	$(dc) rm -v db
+	$(dc) up -d db
+	sleep 2
+
+recreate-db: delete-db setup-db
+
+insert-mockdata:
+	$(dc) run --rm api python -m orders_api.mock
+
 compile-requirements:
 	$(dc) run --rm api bash -c "\
 		python -m pip install pip-tools && \
