@@ -3,10 +3,13 @@ from typing import Optional
 from pydantic import BaseModel
 from pydantic.types import UUID4, condecimal
 
+from .store import Store
 from .utils import to_camel
 
 
 class ProductBase(BaseModel):
+    description: Optional[str]
+
     class Config:
         alias_generator = to_camel
         allow_population_by_field_name = True
@@ -15,7 +18,6 @@ class ProductBase(BaseModel):
 class ProductUpdate(ProductBase):
     name: Optional[str]
     price: Optional[condecimal(decimal_places=2)]  # type: ignore
-    description: Optional[str]
 
 
 class ProductCreate(ProductBase):
@@ -26,6 +28,7 @@ class ProductCreate(ProductBase):
 
 class Product(ProductCreate):
     product_id: UUID4
+    store: Store
 
     class Config:
         orm_mode = True
