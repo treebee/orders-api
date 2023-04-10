@@ -1,6 +1,6 @@
-from typing import Any, List, Optional
+from typing import List, Optional
 
-from fastapi import Depends, Response
+from fastapi import Depends
 from fastapi.routing import APIRouter
 from pydantic.types import UUID4
 
@@ -42,18 +42,17 @@ async def create_product(
     return db_product
 
 
-@router.patch("/{product_id}", response_model=Product)
+@router.patch("/{product_id}", status_code=204)
 async def update_product(
     product_id: UUID4,
     product: ProductUpdate,
     product_service: ProductsService = Depends(get_products_service),
-) -> Optional[models.Product]:
-    return product_service.update(product_id, product)
+) -> None:
+    product_service.update(product_id, product)
 
 
 @router.delete("/{product_id}", status_code=204)
 async def delete_product(
     product_id: UUID4, product_service: ProductsService = Depends(get_products_service)
-) -> Any:
+) -> None:
     product_service.delete(product_id)
-    return Response(status_code=204)

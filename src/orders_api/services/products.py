@@ -12,7 +12,7 @@ class ProductsService(BaseService[Product, ProductCreate, ProductUpdate]):
         super(ProductsService, self).__init__(Product, db_session)
 
     def create(self, obj: ProductCreate) -> Product:
-        store = self.db_session.query(Store).get(obj.store_id)
+        store = self.db_session.get(Store, obj.store_id)
         if store is None:
             raise HTTPException(
                 status_code=400,

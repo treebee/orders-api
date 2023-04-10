@@ -8,7 +8,7 @@ def test_create(app_client, create_store) -> None:
         "storeId": str(create_store.store_id),
     }
     rv = app_client.post("/products/", json=payload)
-    assert rv.status_code == 201
+    assert rv.status_code == 201, rv.json()
 
 
 def test_create_invalid_store(app_client) -> None:
@@ -59,5 +59,6 @@ def test_update(app_client, create_product) -> None:
     rv = app_client.patch(
         f"/products/{create_product.product_id}", json={"name": "Rubik's Cube V2"}
     )
-    assert rv.status_code == 200
-    assert create_product.name == "Rubik's Cube V2"
+    assert rv.status_code == 204
+    rv = app_client.get(f"/products/{create_product.product_id}")
+    assert rv.json()["name"] == "Rubik's Cube V2"

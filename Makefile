@@ -25,9 +25,9 @@ insert-mockdata:
 
 compile-requirements:
 	$(dc) run --rm api bash -c "\
-		python -m pip install pip-tools && \
-		pip-compile -U -o requirements/requirements.txt && \
-		pip-compile -U requirements/test-requirements.in -o requirements/test-requirements.txt"
+		python -m pip install -U pip-tools && \
+		pip-compile -U --resolver=backtracking -o requirements/requirements.txt && \
+		pip-compile -U --resolver=backtracking requirements/test-requirements.in -o requirements/test-requirements.txt"
 
 alembic-revision:
 	$(dc) run --rm api alembic revision --autogenerate -m $(msg)

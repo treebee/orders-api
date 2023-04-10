@@ -1,15 +1,15 @@
+import decimal
 import uuid
 from typing import Any
 
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.sql.schema import ForeignKey, UniqueConstraint
 from sqlalchemy_utils import EmailType
 
-Base: Any = declarative_base()
+Base = declarative_base()
 
 
 class Store(Base):
@@ -48,7 +48,7 @@ class Order(Base):
     items = relationship("OrderItem", backref="order")
 
     @hybrid_property
-    def total(self):
+    def total(self) -> decimal.Decimal:
         return sum(item.product.price * item.quantity for item in self.items)
 
 

@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Any, Generator
+from typing import Generator
 
 import pytest
 from fastapi.testclient import TestClient
@@ -17,9 +17,8 @@ def db() -> Session:
     engine = db_session.bind
     if not database_exists(engine.url):
         create_database(engine.url)
-    Base.metadata.bind = engine
-    Base.metadata.drop_all()
-    Base.metadata.create_all()
+    Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
     return db_session
 
 
@@ -30,7 +29,7 @@ def cleanup_db(db: Session) -> None:
 
 
 @pytest.fixture()
-def app_client(cleanup_db: Any) -> Generator[TestClient, None, None]:
+def app_client(cleanup_db) -> Generator[TestClient, None, None]:
     app = create_app()
     yield TestClient(app)
 
@@ -46,9 +45,8 @@ def create_store(db: Session) -> Generator[Store, None, None]:
         street="Kaiserstr. 42",
     )
     db.add(store)
-    db.flush()
+    db.commit()
     yield store
-    db.rollback()
 
 
 @pytest.fixture()
@@ -57,20 +55,18 @@ def create_product(db: Session, create_store: Store) -> Generator[Product, None,
         name="Rubik's Cube", price=Decimal("9.99"), store_id=create_store.store_id
     )
     db.add(product)
-    db.flush()
+    db.commit()
     yield product
-    db.rollback()
 
 
 @pytest.fixture()
 def create_order(db: Session, create_product: Product) -> Generator[Order, None, None]:
     order = Order()
     db.add(order)
-    db.flush()
+    db.commit()
     order_item = OrderItem(
         product_id=create_product.product_id, order_id=order.order_id, quantity=2
     )
     db.add(order_item)
-    db.flush()
+    db.commit()
     yield order
-    db.rollback()

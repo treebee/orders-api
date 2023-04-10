@@ -46,5 +46,6 @@ def test_update(app_client: TestClient, create_store: Store) -> None:
     rv = app_client.patch(
         f"/stores/{create_store.store_id}", json={"name": "New Store Name"}
     )
-    assert rv.status_code == 200, rv.json()
-    assert create_store.name == "New Store Name"
+    assert rv.status_code == 204
+    rv = app_client.get(f"/stores/{create_store.store_id}")
+    assert rv.json()["name"] == "New Store Name"
