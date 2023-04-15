@@ -10,5 +10,5 @@ debugpy
 flake8
 pytest
 pytest-cov
-requests  # for fastapi.testclient
 sqlalchemy-utils
+sqlalchemy2-stubs

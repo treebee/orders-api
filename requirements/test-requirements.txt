@@ -17,9 +17,6 @@ certifi==2022.12.7
     # via
     #   httpcore
     #   httpx
-    #   requests
-charset-normalizer==3.1.0
-    # via requests
 click==8.1.3
     # via
     #   -r requirements/requirements.txt
@@ -37,7 +34,7 @@ email-validator==1.3.1
     # via
     #   -r requirements/requirements.txt
     #   pydantic
-fastapi==0.95.0
+fastapi==0.95.1
     # via -r requirements/requirements.txt
 flake8==6.0.0
     # via -r requirements/test-requirements.in
@@ -50,17 +47,16 @@ h11==0.14.0
     #   -r requirements/requirements.txt
     #   httpcore
     #   uvicorn
-httpcore==0.16.3
+httpcore==0.17.0
     # via httpx
-httpx==0.23.3
+httpx==0.24.0
     # via -r requirements/test-requirements.in
 idna==2.10
     # via
     #   -r requirements/requirements.txt
     #   anyio
     #   email-validator
-    #   requests
-    #   rfc3986
+    #   httpx
 iniconfig==2.0.0
     # via pytest
 isort==5.12.0
@@ -81,7 +77,7 @@ mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
-packaging==23.0
+packaging==23.1
     # via
     #   black
     #   pytest
@@ -101,16 +97,12 @@ pydantic[email]==1.10.7
     #   fastapi
 pyflakes==3.0.1
     # via flake8
-pytest==7.3.0
+pytest==7.3.1
     # via
     #   -r requirements/test-requirements.in
     #   pytest-cov
 pytest-cov==4.0.0
     # via -r requirements/test-requirements.in
-requests==2.28.2
-    # via -r requirements/test-requirements.in
-rfc3986[idna2008]==1.5.0
-    # via httpx
 sniffio==1.3.0
     # via
     #   -r requirements/requirements.txt
@@ -122,7 +114,9 @@ sqlalchemy==2.0.9
     #   -r requirements/requirements.txt
     #   alembic
     #   sqlalchemy-utils
-sqlalchemy-utils==0.40.0
+sqlalchemy-utils==0.41.0
+    # via -r requirements/test-requirements.in
+sqlalchemy2-stubs==0.0.2a33
     # via -r requirements/test-requirements.in
 starlette==0.26.1
     # via
@@ -135,7 +129,6 @@ typing-extensions==4.5.0
     #   mypy
     #   pydantic
     #   sqlalchemy
-urllib3==1.26.15
-    # via requests
+    #   sqlalchemy2-stubs
 uvicorn==0.21.1
     # via -r requirements/requirements.txt

@@ -13,7 +13,7 @@ class OrdersService(BaseService[Order, OrderCreate, Any]):
         super(OrdersService, self).__init__(Order, db_session)
 
     def create(self, obj: OrderCreate) -> Order:
-        order = Order()
+        order: Order = Order()
         self.db_session.add(order)
         self.db_session.flush()
         order_items = [

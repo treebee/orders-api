@@ -1,6 +1,7 @@
-from orders_api.db.models import Store, Product
-from orders_api.db.session import create_session
+from sqlalchemy.orm import scoped_session
 
+from orders_api.db.models import Product, Store
+from orders_api.db.session import create_session
 
 stores = [
     {
@@ -51,7 +52,7 @@ products = [
 ]
 
 
-def insert_mock_data(session):
+def insert_mock_data(session: scoped_session) -> None:
     store_rows = [Store(**store) for store in stores]
     session.add_all(store_rows)
     session.flush()

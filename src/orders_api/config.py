@@ -10,7 +10,7 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    settings = Settings()
+    settings = Settings()  # type: ignore
     if (db := getenv("POSTGRES_DB")) is not None:
         settings.database_url = PostgresDsn.build(
             scheme="postgresql",

@@ -1,9 +1,10 @@
 from decimal import Decimal
-from typing import Generator
+from typing import Any, Generator
 
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
+from sqlalchemy.engine import Engine
+from sqlalchemy.orm import scoped_session
 from sqlalchemy_utils import create_database, database_exists
 
 from orders_api.app import create_app
@@ -12,9 +13,10 @@ from orders_api.db.session import create_session
 
 
 @pytest.fixture(scope="session")
-def db() -> Session:
-    db_session = create_session()
-    engine = db_session.bind
+def db() -> scoped_session:
+    db_session: scoped_session = create_session()
+    assert db_session.bind is not None
+    engine: Engine = db_session.bind.engine
     if not database_exists(engine.url):
         create_database(engine.url)
     Base.metadata.drop_all(bind=engine)
@@ -23,19 +25,19 @@ def db() -> Session:
 
 
 @pytest.fixture()
-def cleanup_db(db: Session) -> None:
+def cleanup_db(db: scoped_session) -> None:
     for table in reversed(Base.metadata.sorted_tables):
         db.execute(table.delete())
 
 
 @pytest.fixture()
-def app_client(cleanup_db) -> Generator[TestClient, None, None]:
+def app_client(cleanup_db: Any) -> Generator[TestClient, None, None]:
     app = create_app()
     yield TestClient(app)
 
 
 @pytest.fixture()
-def create_store(db: Session) -> Generator[Store, None, None]:
+def create_store(db: scoped_session) -> Generator[Store, None, None]:
     store = Store(
         name="TechStuff Online",
         city="Karlsruhe",
@@ -50,7 +52,9 @@ def create_store(db: Session) -> Generator[Store, None, None]:
 
 
 @pytest.fixture()
-def create_product(db: Session, create_store: Store) -> Generator[Product, None, None]:
+def create_product(
+    db: scoped_session, create_store: Store
+) -> Generator[Product, None, None]:
     product = Product(
         name="Rubik's Cube", price=Decimal("9.99"), store_id=create_store.store_id
     )
@@ -60,7 +64,9 @@ def create_product(db: Session, create_store: Store) -> Generator[Product, None,
 
 
 @pytest.fixture()
-def create_order(db: Session, create_product: Product) -> Generator[Order, None, None]:
+def create_order(
+    db: scoped_session, create_product: Product
+) -> Generator[Order, None, None]:
     order = Order()
     db.add(order)
     db.commit()
